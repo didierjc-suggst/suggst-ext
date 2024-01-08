@@ -1,3 +1,14 @@
+# How to install the Chrome Suggst Extension?
+
+## Manually
+
+1. Open your terminal and navigate to the directory of the Suggst Extension code
+2. Build the code: `yarn build`
+3. Go to chrome://extensions/ and check the box for Developer mode in the top right
+4. Click the Load unpacked extension button and select the "Build" folder for the extension
+
+### [Reference Link](https://certera.com/kb/how-to-manually-install-a-chrome-extension-in-2-ways/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
