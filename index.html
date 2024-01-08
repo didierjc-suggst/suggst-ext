@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:bold" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:semi-bold" rel="stylesheet" type="text/css">
+    <link href="styles/loading-bar.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="styles/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="styles/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="styles/main.min.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="scripts/lib/newrelic.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/tether.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="scripts/oqe_data.min.js"></script>
+    <script type="text/javascript" src="scripts/oq.ea.min.js"></script>
+</head>
+<body>
+    <div id="mainContainer" ng-app="optiqlyApp" ng-controller="optiqlyCtrl">
+        <div id="errorContainer" ng-show="error">
+            Oops! This is not a page for which OptiQly currently provides insights. Try an Amazon product page in Books.
+        </div>
+        <div id="processErrorContainer" ng-show="processError">
+            Oops! There was an error while calculating OptiQly insights. Sorry about that. Please try refreshing and
+            <a href="http://optiq.ly/beta/feedback/" target="_blank" tabindex="-1">contact us</a> if the problem persists,
+            or try another Amazon product page in Books.
+        </div>
+        <div id="spinnerContainer" ng-hide="tabs">
+            <img src="images/spin.gif">
+            <div id="calculating">Calculating...</div>
+        </div>
+        <div id="secondContainer" ng-show="tabs">
+            <div id="header">
+                <div id="logo"><img src="images/OQ-Books-beta.png"></div>
+                <div class="version">Version 0.1.0.2</div>
+                <a href="http://optiq.ly/knowledge-center/" target="_blank" tabindex="-1"><div class="help"></div></a>
+                <div class="feedback">
+                    <a href="http://optiq.ly/beta/feedback/" target="_blank" tabindex="-1">Report a bug / Send feedback</a>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+
+            <div id="tabs" ng-hide="error">
+                <ul>
+                    <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">
+                        <div class="tabTitle {{tab.class}}">
+                            <div class="tabLogo {{tab.class}}">
+                                <div class="tabLogoImg {{tab.name}}Img"></div>
+                                <div class="tabScore {{tab.name}}Score {{tab.scoreClass}}">{{tab.score}}</div>
+                            </div>
+                            <div class="tabTitleText">
+                                {{tab.title}}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div id="mainView">
+                    <div ng-include="currentTab"></div>
+                </div>
+            </div>
+
+            <script type="text/ng-template" id="oqscore.tpl.html">
+                <oq-score-content tab="tabs[0]"
+                                  leavei="onLeaveItem(item)"
+                                  clickede="clickedSomewhereElse(item)"
+                                  clickedh="clickedHere(item)"
+                                  clickedi="clickedInfo(item)">
+                </oq-score-content>
+            </script>
+
+            <script type="text/ng-template" id="onpage.tpl.html">
+                <tab-content tab="tabs[1]"
+                             leavei="onLeaveItem(item)"
+                             clickede="clickedSomewhereElse(item)"
+                             clickedh="clickedHere(item)"
+                             clickedi="clickedInfo(item)">
+                </tab-content>
+            </script>
+
+            <script type="text/ng-template" id="atretail.tpl.html">
+                <tab-content tab="tabs[2]"
+                             leavei="onLeaveItem(item)"
+                             clickede="clickedSomewhereElse(item)"
+                             clickedh="clickedHere(item)"
+                             clickedi="clickedInfo(item)">
+                </tab-content>
+            </script>
+
+            <script type="text/ng-template" id="webnsocial.tpl.html">
+                <tab-content tab="tabs[3]"
+                             leavei="onLeaveItem(item)"
+                             clickede="clickedSomewhereElse(item)"
+                             clickedh="clickedHere(item)"
+                             clickedi="clickedInfo(item)">
+                </tab-content>
+            </script>
+
+            <script type="text/ng-template" id="competitions.tpl.html">
+                <competition-content similars="similars"
+                                     leavei="onLeaveItem(item)"
+                                     clickede="clickedSomewhereElse(item)"
+                                     clickedh="clickedHere(item)"
+                                     clickedi="clickedInfo(item)">
+                </competition-content>
+            </script>
+
+            <div id="footer" ng-show="tabs">
+                <div class="bookImg"><img ng-src="{{book.coverImage}}" ng-show="book.coverImage"></div>
+                <div class="footerContent">
+                    <div class="bookTitle" title="{{book.title}}">{{book.shortTitle}}</div>
+                    <div ng-repeat="author in book.authors">
+                        <div>{{author}}</div>
+                    </div>
+                    <div>
+                        {{book.binding}}
+                        <span ng-show="book.asin">; </span>
+                        {{book.asin}}
+                    </div>
+                    <div title="{{book.publisher}}">
+                        {{book.publisherShort}}
+                        <span ng-show="book.publisher && book.edition">; </span>
+                        {{book.edition}} {{book.publicationDate}}
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legendElement"><b>KEY</b></div>
+                    <div class="indicator green"></div><div class="text">Positive</div>
+                    <div class="indicator yellow"></div><div class="text">Neutral</div>
+                    <div class="indicator red"></div><div class="text">Negative</div>
+                </div>
+                <div class="legend asOf">
+                    <div class="text">{{asOf}} EST</div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+    <script type="text/javascript" src="scripts/oq.firebase.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/cryptojs/hmac-sha256.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/cryptojs/enc-base64.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/xml2json.min.js"></script>
+    <script type="text/javascript" src="scripts/properties.min.js"></script>
+    <script type="text/javascript" src="scripts/data.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/angular.min.js"></script>
+    <script type='text/javascript' src="scripts/loading-bar.min.js"></script>
+    <script type="text/javascript" src="scripts/oq.min.js"></script>
+    <script type="text/javascript" src="scripts/app.min.js"></script>
+    <script type="text/javascript" src="scripts/directive.min.js"></script>
+</body>
+</html>

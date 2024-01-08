@@ -1,0 +1,40 @@
+{
+  "name": "OptiQly",
+  "version": "0.1.0.2",
+  "manifest_version": 2,
+  "description": "Beta: OptiQly looks at key factors to assess and score the marketing and merchandising potential of a book and author.",
+  "icons": {
+    "16": "images/icon-16.png",
+    "128": "images/icon-128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "scripts/background.js",
+      "scripts/ga.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "background",
+    "tabs",
+    "<all_urls>",
+    "activeTab",
+    "debugger",
+    "cookies"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icon-19.png",
+      "38": "images/icon-38.png"
+    },
+    "default_title": "OptiQly",
+    "default_popup": "index.html"
+  },
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com https://apis.google.com https://www.gstatic.com https://ip-api.com https://js-agent.newrelic.com https://bam.nr-data.net https://ly-oq-extension.firebaseio.com https://s-usc1c-nss-114.firebaseio.com 'unsafe-eval'; object-src 'self'",
+  "web_accessible_resources": [
+    "images/icon-48.png"
+  ]
+}

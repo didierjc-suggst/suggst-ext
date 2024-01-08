@@ -1,0 +1,38 @@
+<div id="{{tab.name}}">
+    <div ng-repeat="column in tab.columns">
+        <div class="column {{column.class}}" ng-mouseover="column.showInfo = true" ng-mouseleave="leavei({item: column})">
+            <div ng-class="(column.class=='lastColumn' || column.class=='halfColumn') ? 'columnTitle lastColumnIncWidth' : 'columnTitle'">
+                <div ng-hide="column.hideScore" class="score {{column.scoreClass}}">{{column.score}}</div>
+                <div ng-class="(column.hideScore) ? 'text noTopMargin' : 'text'">{{column.title}}</div>
+                <div class="text" ng-show="column.addText">{{column.addText}}</div>
+                <div click-anywhere-but-here="clickede({item: column})" class="info" ng-show="column.showInfo && column.explanation" ng-mouseover="column.showExpl = true;" ng-mouseleave="column.showExpl = false" ng-click="clickedi({item: column})">i</div>
+                <div click-anywhere-but-here="clickede({item: column})" ng-click="clickedh({item: column})" class="expl" ng-show="(column.showExpl || column.showExpl2)">{{column.explanation}}</div>
+                <div class="clear"></div>
+            </div>
+            <div ng-class="(column.class=='lastColumn' || column.class=='halfColumn') ? 'description lastColumnIncWidth' : 'description'">{{column.description}}</div>
+            <div class="section" ng-hide="section.invisible" ng-repeat="section in column.sections" ng-mouseover="section.showInfo = true" ng-mouseleave="leavei({item: section})">
+                <div class="sectionTitle">{{section.title}}
+                    <div click-anywhere-but-here="clickede({item: section})" class="info" ng-show="section.showInfo && section.explanation" ng-mouseover="section.showExpl = true;" ng-mouseleave="section.showExpl = false" ng-click="clickedi({item: section})">i</div>
+                    <div click-anywhere-but-here="clickede({item: section})" ng-click="clickedh({item: section})" class = "expl" ng-show="(section.showExpl || section.showExpl2)">{{section.explanation}}</div>
+                </div>
+                <div class="description" ng-show="section.description">{{section.description}}</div>
+                <div ng-show="column.signature && column.sections[0].lines.length == 0">No results available at this time.</div>
+                <div class="line {{line.explClass}}" ng-repeat="line in section.lines" ng-mouseover="line.showInfo = true" ng-mouseleave="leavei({item: line})">
+                    <div class="attrLine">
+                        <div class="indicator {{line.class}}" ng-show="line.class"></div>
+                        <div class="text {{line.textClass}}" title="{{line.title}}" oqname="{{line.name}}">{{line.text}}</div>
+                        <div class="value" ng-show="line.value">&nbsp;&nbsp;&nbsp;{{line.value}}</div>
+                        <!--{{line.class}}Text-->
+                        <div class="clear"></div>
+                    </div>
+                    <div click-anywhere-but-here="clickede({item: line})" class="info" ng-show="line.showInfo && line.explanation" ng-mouseover="line.showExpl = true;" ng-mouseleave="line.showExpl = false" ng-click="clickedi({item: line})">i</div>
+                    <div click-anywhere-but-here="clickede({item: line})" ng-click="clickedh({item: line})" class="expl" ng-show="(line.showExpl || line.showExpl2)">{{line.explanation}}</div>
+                </div>
+            </div>
+            <div class="signaturePlaceholder" ng-show="column.signature && column.sections[0].lines.length > 5"></div>
+            <div ng-show="column.signature && column.sections[0].lines.length">
+                <a href="{{column.signatureUrl}}" target="_blank"><div class="signature">Powered by</div></a></div>
+        </div>
+    </div>
+</div>
+<div class = "clear"></div>

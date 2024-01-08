@@ -1,0 +1,22 @@
+<div id="{{tab.name}}">
+    <div ng-repeat="column in tab.columns">
+        <div class="column {{column.class}}">
+            <div class="section {{section.class}}" ng-repeat="section in column.sections">
+                <!--<div class="sectionTitle">{{section.title}}</div>-->
+                <div ng-class="(column.class=='lastColumn') ? 'columnTitle lastColumnIncWidth' : 'sectionTitle'">{{section.title}}</div>
+                <div ng-class="(column.class=='lastColumn') ? 'description oqscore lastColumnIncWidth' : ''" ng-show="section.description">{{section.description}}</div>
+                <div class="line {{line.explClass}}" ng-repeat="line in section.lines" ng-mouseover="line.showInfo = true" ng-mouseleave="leavei({item: line})" ng-show="line.displayOnOQScoreTab">
+                    <div class="attrLine oqattrLine">
+                        <div ng-class="(column.class=='firstColumn') ? 'lineScore {{line.scoreClass}} noRightMargin' : 'lineScore {{line.scoreClass}}'" ng-show="line.scorable">{{line.score.real}}</div>
+                        <div class="indicator {{line.class}}" ng-hide="line.scorable"></div>
+                        <div class="text {{line.textClass}}" title="{{line.title}}">{{line.text}}</div>
+                        <div class="clear"></div>
+                    </div>
+                    <div click-anywhere-but-here="clickede({item: line})" class="info" ng-show="line.showInfo && line.explanation" ng-mouseover="line.showExpl = true;" ng-mouseleave="line.showExpl = false" ng-click="clickedi({item: line})">i</div>
+                    <div click-anywhere-but-here="clickede({item: line})" ng-click="clickedh({item: line})" class="expl" ng-show="(line.showExpl || line.showExpl2)">{{line.explanation}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class = "clear"></div>

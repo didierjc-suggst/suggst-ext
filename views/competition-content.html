@@ -1,0 +1,16 @@
+<div id="competition">
+    <div class="tTitle">ONLINE AND IN AMAZON</div>
+    <div class="descr">Buyers also look for, buy, and discuss these products.</div>
+    <div ng-repeat="item in similars">
+        <div class="similar {{item.class}}">
+            <div class="bookImg"><img ng-src="{{item.coverImage}}" ng-show="item.coverImage"></div>
+            <div class="bookTitle" title="{{item.title}}">{{item.shortTitle}}</div>
+            <div>{{item.author}}</div>
+            <div>{{item.binding}}</div>
+            <div>{{item.publisher}}; {{item.edition}} {{item.publicationDate}}</div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="noCompetitionResults" ng-hide="similars && similars.length">Oops! Competition for this product is currently unavailable.</div>
+</div>
